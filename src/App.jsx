@@ -1,29 +1,49 @@
-import { OrbitControls, useGLTF, useTexture } from '@react-three/drei'
-import { Canvas } from '@react-three/fiber'
-import React, { useRef } from 'react'
-import * as THREE from 'three'
+import { OrbitControls, useGLTF, useTexture, Environment, Sky, BakeShadows, useHelper } from '@react-three/drei'
+import { Canvas, useFrame } from '@react-three/fiber'
+import React, { useRef, useState } from 'react'
+import { EffectComposer, N8AO, TiltShift2 } from '@react-three/postprocessing'
 
 const Model = () => {
+	const ref = useRef()
 	const { nodes } = useGLTF('/landscape.glb')
 	const texture = useTexture('/tex/sprite.png')
 
+	const [camActive, set] = useState(true)
+
+	useFrame((state) => {
+		state.camera.position.lerp({ x: camActive ? 0.25 : -0.35, y: camActive ? 0.1 : 0, z: camActive ? -0.15 : 0.45 }, 0.03)
+		state.camera.lookAt(camActive ? 0.5 : -0.25, camActive ? -0.05 : 0.23, camActive ? 0.12 : -0.45)
+		// state.camera.lookAt(0.5, 0, 0.07)
+	})
+
 	return (
-		<group dispose={null}>
-			<points geometry={nodes.landscape.geometry}>
-				<pointsMaterial color='#9fcdd8' size={0.002} sizeAttenuation={true} map={texture} transparent={true} />
-			</points>
-			{/* <mesh geometry={nodes.landscape.geometry}>
-				<meshBasicMaterial color='#fff' wireframe={false} />
-			</mesh> */}
-		</group>
+		<>
+			<group dispose={null}>
+				<points geometry={nodes.landscape.geometry}>
+					<pointsMaterial color='#9fcdd8' size={0.002} sizeAttenuation={true} map={texture} transparent={true} />
+				</points>
+				<mesh castShadow receiveShadow ref={ref} geometry={nodes.landscape.geometry} position={[0, -0.0005, 0]} onClick={() => set(!camActive)}>
+					<meshPhysicalMaterial color='white' wireframe={false} flatShading={true} castShadow receiveShadow />
+				</mesh>
+			</group>
+		</>
 	)
 }
 
 const Scene = () => {
 	return (
-		<Canvas camera={{ position: [1.5, 1.5, 1.5] }}>
-			<Model />
-			<OrbitControls />
+		<Canvas shadows camera={{ position: [20, 20, 20], fov: 30, near: 0.01 }}>
+			<ambientLight intensity={0.25} />
+			<hemisphereLight intensity={0.5} color='white' groundColor='white' />
+			<directionalLight intensity={5} angle={0.3} penumbra={1} position={[30, 20, 30]} castShadow shadow-mapSize={1024} shadow-bias={-0.0004} />
+			<Model castShadow receiveShadow />
+			{/* <Tracker /> */}
+			{/* <OrbitControls enableZoom={true} /> */}
+			<Environment preset='city' />
+			<EffectComposer disableNormalPass multisampling={0}>
+				<N8AO aoRadius={0.1} intensity={2} aoSamples={6} denoiseSamples={4} />
+			</EffectComposer>
+			<Sky />
 		</Canvas>
 	)
 }
