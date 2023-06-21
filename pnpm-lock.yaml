@@ -4,6 +4,9 @@ specifiers:
   '@react-three/drei': ^9.56.18
   '@react-three/fiber': ^8.11.0
   '@react-three/postprocessing': ^2.14.11
+  '@theatre/core': ^0.6.1
+  '@theatre/r3f': ^0.6.1
+  '@theatre/studio': ^0.6.1
   '@types/react': ^18.0.27
   '@types/react-dom': ^18.0.10
   '@types/three': ^0.149.0
@@ -17,6 +20,9 @@ dependencies:
   '@react-three/drei': 9.76.1_7rraghgoxhqwmmvpzaqqr43sta
   '@react-three/fiber': 8.13.3_4tzez3c2xpzuefjrvhpyy55bva
   '@react-three/postprocessing': 2.14.11_mdfgeyit5ae7tujzt2ktu7bbu4
+  '@theatre/core': 0.6.1
+  '@theatre/r3f': 0.6.1_t3uub4mvz3yg7imtdoxu7ba7ky
+  '@theatre/studio': 0.6.1_@theatre+core@0.6.1
   '@types/three': 0.149.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -524,6 +530,45 @@ packages:
       '@swc/core-win32-x64-msvc': 1.3.65
     dev: true
 
+  /@theatre/core/0.6.1:
+    resolution: {integrity: sha512-ZvSqAAB2LVVnB6hDzKQOVHjeZtb7Hvqu1IrFRITv4Kq6465Cn9VI2nwcDjelDCOmTIv23pd8d3Fz2DPYjjF9mg==}
+    dependencies:
+      '@theatre/dataverse': 0.6.1
+    dev: false
+
+  /@theatre/dataverse/0.6.1:
+    resolution: {integrity: sha512-iomovt4oWCEAZFP6/BdSJAb2cAjPOs6y3wh7QlrUBmEwdQ/21ISK9N2IsCzlJ0t16w58l7Eh61Gw60Y0t7/uNA==}
+    dependencies:
+      lodash-es: 4.17.21
+    dev: false
+
+  /@theatre/r3f/0.6.1_t3uub4mvz3yg7imtdoxu7ba7ky:
+    resolution: {integrity: sha512-tUGu+NxXu8znEgAFzBskxOWCpf16fc6yHkKyljeSQ737ad3srF8ht1zo3gbF9ZDxJJMFwtPAVwy18vx1z7+yTw==}
+    peerDependencies:
+      '@react-three/fiber': '>=7.0.6'
+      '@theatre/core': '*'
+      '@theatre/studio': '*'
+      react: '>=17.0.2'
+      react-dom: '>=17.0.2'
+      three: '>=0.131.3'
+    dependencies:
+      '@react-three/fiber': 8.13.3_4tzez3c2xpzuefjrvhpyy55bva
+      '@theatre/core': 0.6.1
+      '@theatre/studio': 0.6.1_@theatre+core@0.6.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      three: 0.148.0
+    dev: false
+
+  /@theatre/studio/0.6.1_@theatre+core@0.6.1:
+    resolution: {integrity: sha512-aJlHnfYctYbw2zDd+AK0ts4oKR4RuiQZCgMhANKv8VucINFqfDFcl6ixN6qxCTQfBFe4s/qyyc9y/9Np1ZCPwQ==}
+    peerDependencies:
+      '@theatre/core': '*'
+    dependencies:
+      '@theatre/core': 0.6.1
+      '@theatre/dataverse': 0.6.1
+    dev: false
+
   /@types/draco3d/1.4.2:
     resolution: {integrity: sha512-goh23EGr6CLV6aKPwN1p8kBD/7tT5V/bLpToSbarKrwVejqNrspVrv8DhliteYkkhZYrlq/fwKZRRUzH4XN88w==}
     dev: false
@@ -700,6 +745,10 @@ packages:
 
   /ktx-parse/0.4.5:
     resolution: {integrity: sha512-MK3FOody4TXbFf8Yqv7EBbySw7aPvEcPX++Ipt6Sox+/YMFvR5xaTyhfNSk1AEmMy+RYIw81ctN4IMxCB8OAlg==}
+    dev: false
+
+  /lodash-es/4.17.21:
+    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
     dev: false
 
   /lodash.clamp/4.0.3:
